@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.EditText;
 
 import com.szugyi.fragmentloading.fragment.FastLoadingFragment;
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         Observable.zip(observableList, new FuncN<Boolean>() {
             @Override
             public Boolean call(Object... args) {
+                Log.v(MainActivity.class.getSimpleName(), "Zip ended");
                 searchEditText.setEnabled(true);
                 return null;
             }

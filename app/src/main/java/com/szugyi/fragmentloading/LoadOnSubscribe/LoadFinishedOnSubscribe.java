@@ -1,7 +1,5 @@
 package com.szugyi.fragmentloading.LoadOnSubscribe;
 
-import com.szugyi.fragmentloading.fragment.LoadingFragment;
-
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.MainThreadSubscription;
