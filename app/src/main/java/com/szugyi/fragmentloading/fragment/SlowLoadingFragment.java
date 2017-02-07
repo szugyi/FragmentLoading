@@ -8,6 +8,6 @@ public class SlowLoadingFragment extends LoadingFragment {
 
     @Override
     protected int getLoadMillis() {
-        return 5000;
+        return 20000;
     }
 }

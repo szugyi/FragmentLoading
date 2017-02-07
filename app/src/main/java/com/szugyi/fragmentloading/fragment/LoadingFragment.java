@@ -10,12 +10,14 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.szugyi.fragmentloading.LoadOnSubscribe.LoadFinishedOnSubscribe;
+import com.szugyi.fragmentloading.LoadOnSubscribe.OnLoadFinishedSubject;
+import com.szugyi.fragmentloading.LoadOnSubscribe.OnLoadFinishedListener;
 import com.szugyi.fragmentloading.R;
 
 import rx.Observable;
-import rx.Subscriber;
 
-public abstract class LoadingFragment extends Fragment {
+public abstract class LoadingFragment extends Fragment implements OnLoadFinishedSubject {
     protected OnLoadFinishedListener onLoadFinishedListener;
 
     protected ProgressBar progressBar;
@@ -26,24 +28,13 @@ public abstract class LoadingFragment extends Fragment {
 
     protected abstract int getLoadMillis();
 
+    @Override
     public void setOnLoadFinishedListener(OnLoadFinishedListener listener) {
         this.onLoadFinishedListener = listener;
     }
 
     public Observable<Boolean> getLoadObservable() {
-        return Observable.create(new Observable.OnSubscribe<Boolean>() {
-            @Override
-            public void call(final Subscriber<? super Boolean> subscriber) {
-                setOnLoadFinishedListener(new OnLoadFinishedListener() {
-                    @Override
-                    public void onLoadFinished(boolean isLoadFinished) {
-                        if (subscriber.isUnsubscribed()) return;
-                        subscriber.onNext(isLoadFinished);
-                        subscriber.onCompleted();
-                    }
-                });
-            }
-        });
+        return Observable.create(new LoadFinishedOnSubscribe(this));
     }
 
     private void notifyListener(boolean isFinished) {
@@ -93,13 +84,10 @@ public abstract class LoadingFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         if (timer != null) {
+            notifyListener(false);
             timer.cancel();
             timer = null;
         }
         onLoadFinishedListener = null;
-    }
-
-    public interface OnLoadFinishedListener {
-        void onLoadFinished(boolean isLoadFinished);
     }
 }

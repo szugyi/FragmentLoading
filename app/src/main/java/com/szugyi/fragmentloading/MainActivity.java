@@ -16,7 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.FuncN;
+import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
     private EditText searchEditText;
@@ -55,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
                 searchEditText.setEnabled(true);
                 return null;
             }
-        }).subscribe();
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe();
     }
 }
