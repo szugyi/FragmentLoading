@@ -1,4 +1,4 @@
-package com.szugyi.fragmentloading.LoadOnSubscribe;
+package com.szugyi.fragmentloading.rxload;
 
 public interface OnLoadFinishedSubject {
     void setOnLoadFinishedListener(OnLoadFinishedListener onLoadFinishedListener);

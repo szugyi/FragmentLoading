@@ -10,9 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.szugyi.fragmentloading.LoadOnSubscribe.LoadFinishedOnSubscribe;
-import com.szugyi.fragmentloading.LoadOnSubscribe.OnLoadFinishedSubject;
-import com.szugyi.fragmentloading.LoadOnSubscribe.OnLoadFinishedListener;
+import com.szugyi.fragmentloading.rxload.LoadFinishedOnSubscribe;
+import com.szugyi.fragmentloading.rxload.OnLoadFinishedSubject;
+import com.szugyi.fragmentloading.rxload.OnLoadFinishedListener;
 import com.szugyi.fragmentloading.R;
 
 import rx.Observable;
